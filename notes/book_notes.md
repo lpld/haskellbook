@@ -1,7 +1,7 @@
 Chapter 4. Basic datatypes
-====================
+==========================
 
-#### Define a datatype
+#### Defining a datatype
 ```haskell
 data Bool = False | True
 --   [1]     [2] [3]
@@ -59,4 +59,39 @@ length :: [a] -> Int
 
 -- Reverse a list
 reverse :: [a] -> [a]
+```
+
+Chapter 5. Types
+================
+
+#### Function type
+The arrow, `(->)`, is a type constructor for functions. It has not data constructors. Fuctions are values.
+```haskell
+data (->) a b
+```
+
+#### Currying and partial application
+All functions in Haskell take one argument and return one result. Currying refers to nesting multiple functions, each accepting one argument and returning one result.
+```haskell
+f :: a -> a -> a
+
+-- (->) is right associative, so this is equivalent to
+f :: a -> (a -> a)
+```
+Thus, functions with more than one argument can be partially applied.
+
+There are `curry` and `uncurry` functions. `curry` takes a function of one argument that takes a tuple (`(a, b) -> c`) and produces a function that takes two arguments sequentially (`a -> b -> c`). `uncurry` does the opposite.
+```haskell
+curry :: ((a, b) -> c) -> (a -> b -> c)
+uncurry :: (a -> b -> c) -> ((a, b) -> c)
+```
+
+##### Sectioning
+Sectioning is a partial application of infix operators.
+```haskell
+(6/) -- (/) operator partially applied to value 6 as first argument.
+(/6) -- same, but 6 now is second argument
+
+(6/) 3 == 2   -- True
+(/6) 18 == 18 -- True
 ```
