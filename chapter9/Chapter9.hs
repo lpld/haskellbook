@@ -23,4 +23,18 @@ splitWords = splitString ' '
 splitLines :: String -> [String]
 splitLines = splitString '\n'
 
+-- Write your own version of `zip`:
+myZip :: [a] -> [b] -> [(a, b)]
+myZip [] _          = []
+myZip _ []          = []
+myZip (x:xs) (y:ys) = (x, y):(myZip xs ys)
 
+-- Write your own version of `zipWith`:
+myZipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+myZipWith _ [] _          = []
+myZipWith _ _ []          = []
+myZipWith f (x:xs) (y:ys) = (f x y):(myZipWith f xs ys)
+
+-- Rewrite `zip` in terms of `zipWith`:
+myZip2 :: [a] -> [b] -> [(a, b)]
+myZip2 = myZipWith (,)
